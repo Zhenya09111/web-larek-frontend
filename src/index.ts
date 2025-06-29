@@ -43,24 +43,18 @@ api.getProductist().then((appData) => {
 
     page.render({ catalog: productArray })
 
+}).catch(() => {
+    alert(`ошибка подключения`)
 })
 
 events.on('product:select', (data: { current: IProduct }) => {
     let currentItem = productsData.getProduct(data.current.id)
     modal.render({
         content:productPreview.render(productsData.getProduct(data.current.id))
-         
-            // title: currentItem.title,
-            // image: currentItem.image,
-            // price: currentItem.price,
-            // cagetory: currentItem.category,
-            // id: currentItem.id,
-            // description: currentItem.description,
     })
     productPreview.checkDisabled(productsData.selected(currentItem.id))
 
 })
-// })
 
 
 events.on('modal:open', () => {
