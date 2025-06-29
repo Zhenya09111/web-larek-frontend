@@ -17,4 +17,8 @@
     @include mixins.button(white, $primaryLight, $primaryLight);
     border: $hoverBorder;
   }
+
+  &_alt-active {
+    border: 1px solid white;
+  }
 }

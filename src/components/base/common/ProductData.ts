@@ -16,7 +16,7 @@ export class ProductData {
     order: IOrder = {
         email: '',
         phone: '',
-        payment: '',
+        payment: null,
         address: '',
         items: [],
         total: ''
@@ -73,6 +73,9 @@ export class ProductData {
 
     validateOrderAddress(): boolean {
         const errors: typeof this.formErrors = {};
+        if (this.order.payment === null) {
+            errors.payment = 'Необходимо указать способ оплаты'
+        }
         if (this.order.address.length < 5) {
             errors.address = 'Необходимо указать адресс'
         }
@@ -116,7 +119,7 @@ export class ProductData {
             this.order = {
                 email: '',
                 phone: '',
-                payment: '',
+                payment: null,
                 address: '',
                 items: [],
                 total: ''

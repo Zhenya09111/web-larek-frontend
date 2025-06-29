@@ -131,6 +131,7 @@ events.on('address:open', () => {
     addressForm.checkButton(productsData.validateOrderAddress())
     productsData.setPriceOrder()
     productsData.setItemOrder(productsData.basket)
+    addressForm.choicePayment(productsData.order.payment)
 })
 
 
@@ -188,6 +189,8 @@ events.on('order', () => {
 
 events.on(/^payment\..*:change/, (data: { field: string }) => {
     productsData.payment(data.field)
+    addressForm.checkButton(productsData.validateOrderAddress())
+    addressForm.choicePayment(productsData.order.payment)
 })
 
 events.on('close:Success', () => {

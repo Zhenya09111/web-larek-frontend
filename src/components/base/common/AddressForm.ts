@@ -3,7 +3,7 @@ import { IEvents } from "../base/events";
 import { Modal } from "../base/Modal";
 
 export interface IOrder{
-    payment: string;
+    payment: string | null;
     address: string;
     email: string;
     phone: string;
@@ -84,4 +84,20 @@ export class AddressForm extends Component<IAddressForm> {
         }
     }
 
+    choicePayment(value: string | null){
+    if(value === null){ 
+        this.btns.forEach(btn => {
+            if (btn.classList.contains('button_alt-active')){
+                btn.classList.remove('button_alt-active')
+            }
+        })
+    }else{
+        this.btns.forEach(btn => {
+            if (btn.classList.contains('button_alt-active')){
+                btn.classList.remove('button_alt-active')
+            }
+        })
+        this.container.querySelector(`[name=${value}]`).classList.add('button_alt-active')
+    }
+}
 }
