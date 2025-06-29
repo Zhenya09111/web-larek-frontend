@@ -5,17 +5,17 @@ import { IEvents } from "../base/events";
 import { Product } from "./ProductItem";
 import { Component } from '../base/Component';
 
-export interface IPreview {
-        id: string,
-        image: string,
-        category: string,
-        title: string,
-        price: number | null,
-        description: string,
-        checkDisabled?: boolean;
-}
+// export interface IPreview {
+//         id: string,
+//         image: string,
+//         category: string,
+//         title: string,
+//         price: number | null,
+//         description: string,
+//         // checkDisabled?: boolean;
+// }
 
-export class ProdcutPreview<IPreview>{
+export class ProdcutPreview<IProduct>{
     protected productText: HTMLElement;
     protected producrtCategory: HTMLElement;
     protected productCardImage: HTMLImageElement;
@@ -63,7 +63,7 @@ export class ProdcutPreview<IPreview>{
             }
         }
         
-        set checkDisabled(par: boolean){
+        checkDisabled(par: boolean){
             if(par === true){
                 this.productButton.disabled = true
             }else{
@@ -87,7 +87,7 @@ export class ProdcutPreview<IPreview>{
             this.productText.textContent = value;
         }
 
-        render(data?: Partial<IPreview>): HTMLElement {
+        render(data?: Partial<IProduct>): HTMLElement {
         Object.assign(this as object, data ?? {});
         return this.container;
     }

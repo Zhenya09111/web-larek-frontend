@@ -106,6 +106,11 @@ export class ProductData {
         this.order.items = value.map(item => item.id)
     }
 
+    indexBasket(id: string){
+       return this._basket.findIndex(user => user.id === id) 
+    // return 10
+    }
+
 
     orderReset(): void {
             this.order = {

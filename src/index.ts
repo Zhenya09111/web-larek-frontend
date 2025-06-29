@@ -48,17 +48,19 @@ api.getProductist().then((appData) => {
 events.on('product:select', (data: { current: IProduct }) => {
     let currentItem = productsData.getProduct(data.current.id)
     modal.render({
-        content: productPreview.render({
-            title: currentItem.title,
-            image: currentItem.image,
-            price: currentItem.price,
-            cagetory: currentItem.category,
-            id: currentItem.id,
-            description: currentItem.description,
-            checkDisabled: productsData.selected(currentItem.id)
-        })
+        content:productPreview.render(productsData.getProduct(data.current.id))
+         
+            // title: currentItem.title,
+            // image: currentItem.image,
+            // price: currentItem.price,
+            // cagetory: currentItem.category,
+            // id: currentItem.id,
+            // description: currentItem.description,
     })
+    productPreview.checkDisabled(productsData.selected(currentItem.id))
+
 })
+// })
 
 
 events.on('modal:open', () => {
@@ -72,16 +74,19 @@ events.on('modal:close', () => {
 events.on('product add basket', (data: { current: IProduct }) => {
     productsData.addItemBasket(productsData.getProduct(data.current.id))
     page.render({ counter: productsData.basket })
-    productPreview.render({
-        checkDisabled: productsData.selected(data.current.id)
-    })
+        productPreview.checkDisabled(productsData.selected(data.current.id))
     modal.close()
 })
 
 events.on('basket:open', () => {
-    const BasketArray = productsData.basket.map((item, i) => {
-        const testItem = new BasketItem(cloneTemplate(basketItemTemplate), events, i);
-        return testItem.render(item)
+    const BasketArray = productsData.basket.map((item) => {
+        const testItem = new BasketItem(cloneTemplate(basketItemTemplate), events);
+        return testItem.render({
+            index: productsData.indexBasket(item.id),
+            title: item.title,
+            price: item.price,
+            id: item.id
+        })
 
     })
 
@@ -98,15 +103,18 @@ events.on('delete:product', (data: { item: IProduct }) => {
     page.render({
         counter: productsData.basket
     });
-    const testBasketArray = productsData.basket.map((item, i) => {
-        const testItem = new BasketItem(cloneTemplate(basketItemTemplate), events, i);
-        return testItem.render(item)
-
+    const BasketArray = productsData.basket.map((item) => {
+        const testItem = new BasketItem(cloneTemplate(basketItemTemplate), events);
+        return testItem.render({
+            index: productsData.indexBasket(item.id),
+            title: item.title,
+            price: item.price,
+            id: item.id
+        })
     })
-
     modal.render({
         content: basket.render({
-            catalog: testBasketArray,
+            catalog: BasketArray,
             totalAmount: productsData.totalAmount
         })
     })

@@ -23,13 +23,13 @@ export class AddressForm extends Component<IAddressForm> {
     protected submitButton: HTMLButtonElement;
     protected events: IEvents;
     protected btns: NodeListOf<HTMLButtonElement>;
-    // protected form: HTMLFormElement
+    
 
 
     constructor(protected container: HTMLElement, events: IEvents) {
         super(container)
         this.events = events;
-        // this.form = this.container.querySelector('.form');
+
         this.btns = this.container.querySelectorAll('.button_alt');
         this.input = this.container.querySelector('.form__input');
         this.formName = this.container.getAttribute('name');
